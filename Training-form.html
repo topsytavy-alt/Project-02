@@ -69,14 +69,15 @@
         ✔ Your application has been submitted successfully!
     </div>
 
-    <form id="applicationForm">
+    <!-- IMPORTANT: THIS NOW SUBMITS TO submit.php -->
+    <form id="applicationForm" action="submit.php" method="POST" enctype="multipart/form-data">
 
         <!-- STEP 1 – PERSONAL INFO -->
         <div class="step active" id="step1">
             <h3>Step 1: Personal Information</h3>
 
             <label>Full Name</label>
-            <input type="text" name="fullname" required>
+            <input type="text" name="full_name" required>
 
             <label>Email</label>
             <input type="email" name="email" required>
@@ -92,7 +93,7 @@
             <h3>Step 2: Training Details</h3>
 
             <label>Select Training Program</label>
-            <select name="trainingProgram" required>
+            <select name="program" required>
                 <option value="">--Choose Program--</option>
                 <option>Web Design</option>
                 <option>Web Development</option>
@@ -102,10 +103,10 @@
             </select>
 
             <label>Why did you choose this training?</label>
-            <textarea name="reason" rows="3" required placeholder="Explain why you want this course..."></textarea>
+            <textarea name="reason" rows="3" required></textarea>
 
             <label>Do you have any experience with this course?</label>
-            <textarea name="experience" rows="3" required placeholder="Describe your experience or write 'No experience'"></textarea>
+            <textarea name="experience" rows="3" required></textarea>
 
             <div class="btns">
                 <button type="button" onclick="prevStep(1)">← Back</button>
@@ -124,7 +125,7 @@
             <input type="file" name="certificate">
 
             <label>Upload ID</label>
-            <input type="file" name="idCard" required>
+            <input type="file" name="idfile" required>
 
             <div class="btns">
                 <button type="button" onclick="prevStep(2)">← Back</button>
@@ -147,23 +148,9 @@ function prevStep(stepNumber) {
     document.getElementById("step" + stepNumber).classList.add("active");
 }
 
-document.getElementById("applicationForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    // Show success message
-    document.getElementById("successMessage").style.display = "block";
-
-    // Reset form
-    document.getElementById("applicationForm").reset();
-
-    // Return user to Step 1 after submission
-    document.querySelector(".step.active").classList.remove("active");
-    document.getElementById("step1").classList.add("active");
-});
+// Remove old JS behavior
+// The success message will now come from PHP (submit.php)
 </script>
 
 </body>
-
-<form id="applicationForm" action="submit.php" method="POST" enctype="multipart/form-data"></form>
-
 </html>
